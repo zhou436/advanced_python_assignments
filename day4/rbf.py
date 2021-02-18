@@ -1,7 +1,10 @@
 from math import exp
 import numpy as np
 from scipy.interpolate import Rbf
+import fastloop
+import cy_primes
 
+# @Profile
 # Naive python implementation of a Radial Basis Function (RBF) approximation scheme
 def rbf_network(X, beta, theta):
 
@@ -19,6 +22,7 @@ def rbf_network(X, beta, theta):
 
     return Y
 
+# @Profile
 # Scipy implementation of a Radial Basis Function (RBF) approximation scheme
 def rbf_scipy(X, beta):
 
@@ -48,18 +52,19 @@ theta = 10
 # Simple testing of the performance of the Python and Scipy implementations
 import time
 
+# python
 t0 = time.time()
 rbf_network(X, beta, theta)
 print("Python: ", time.time() - t0)
-
+# scipy
 t0 = time.time()
 rbf_scipy(X, beta)
 print("Scipy: ", time.time() - t0)
 
 # Testing the performance of Cython
-#t0 = time.time()
-#rbf_network_cython(X, beta, theta)
-#print("Cython: ", time.time() - t0)
+t0 = time.time()
+fastloop.rbf_network_cython(X, beta, theta)
+print("Cython: ", time.time() - t0)
 
 
 

@@ -1,7 +1,6 @@
 import numpy
-
 """
- Calculates first kmax primes 
+Calculates first kmax primes
 """
 def primes(kmax):
     p = numpy.zeros((1000),dtype=numpy.int)
